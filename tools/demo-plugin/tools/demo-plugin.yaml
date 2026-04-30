@@ -1,0 +1,34 @@
+identity:
+  name: "demo-plugin"
+  author: "cwg"
+  label:
+    en_US: "demo-plugin"
+    zh_Hans: "demo-plugin"
+    pt_BR: "demo-plugin"
+    ja_JP: "demo-plugin"
+description:
+  human:
+    en_US: "这是一个演示例子"
+    zh_Hans: "这是一个演示例子"
+    pt_BR: "这是一个演示例子"
+    ja_JP: "这是一个演示例子"
+  llm: "这是一个演示例子"
+parameters:
+  - name: query
+    type: string
+    required: true
+    label:
+      en_US: Query string
+      zh_Hans: 查询语句
+      pt_BR: Query string
+      ja_JP: クエリ文字列
+    human_description:
+      en_US: "这是一个演示例子"
+      zh_Hans: "这是一个演示例子"
+      pt_BR: "这是一个演示例子"
+      ja_JP: "这是一个演示例子"
+    llm_description: "这是一个演示例子"
+    form: llm
+extra:
+  python:
+    source: tools/demo-plugin.py
