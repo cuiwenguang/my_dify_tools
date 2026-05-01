@@ -1,0 +1,65 @@
+identity:
+  name: "add_customer_tags"
+  author: "cwg"
+  label:
+    en_US: "Add Customer Tags"
+    zh_Hans: "添加客户标签"
+    pt_BR: "Add Customer Tags"
+    ja_JP: "Add Customer Tags"
+description:
+  human:
+    en_US: "给企业微信客户添加标签，支持单个或多个标签"
+    zh_Hans: "给企业微信客户添加标签，支持单个或多个标签"
+    pt_BR: "给企业微信客户添加标签，支持单个或多个标签"
+    ja_JP: "给企业微信客户添加标签，支持单个或多个标签"
+  llm: "用于给企业微信客户添加标签。需要传入：客户外部用户ID(external_userid)、跟进员工用户ID(userid)、标签名称(tag_names，多个标签用逗号分隔)。在需要对客户进行分类、标记客户属性时使用此工具。"
+parameters:
+  - name: external_userid
+    type: string
+    required: true
+    label:
+      en_US: External User ID
+      zh_Hans: 客户外部用户ID
+      pt_BR: External User ID
+      ja_JP: External User ID
+    human_description:
+      en_US: "企业微信客户的外部用户唯一标识ID"
+      zh_Hans: "企业微信客户的外部用户唯一标识ID"
+      pt_BR: "企业微信客户的外部用户唯一标识ID"
+      ja_JP: "企业微信客户的外部用户唯一标识ID"
+    llm_description: "企业微信客户的外部用户唯一标识ID(external_userid)。可以从客户信息、群成员列表等地方获取。"
+    form: llm
+  - name: userid
+    type: string
+    required: true
+    label:
+      en_US: User ID
+      zh_Hans: 跟进员工用户ID
+      pt_BR: User ID
+      ja_JP: User ID
+    human_description:
+      en_US: "添加标签的跟进员工的企业微信用户ID"
+      zh_Hans: "添加标签的跟进员工的企业微信用户ID"
+      pt_BR: "添加标签的跟进员工的企业微信用户ID"
+      ja_JP: "添加标签的跟进员工的企业微信用户ID"
+    llm_description: "跟进员工的企业微信用户ID(userid)。标签是绑定在员工与客户的关系上的，需要指定是哪个员工给客户打标签。通常是客户的跟进人或群成员中的企业员工。"
+    form: llm
+  - name: tag_names
+    type: string
+    required: true
+    label:
+      en_US: Tag Names
+      zh_Hans: 标签名称
+      pt_BR: Tag Names
+      ja_JP: Tag Names
+    human_description:
+      en_US: "要添加的标签名称，多个标签用逗号分隔"
+      zh_Hans: "要添加的标签名称，多个标签用逗号分隔"
+      pt_BR: "要添加的标签名称，多个标签用逗号分隔"
+      ja_JP: "要添加的标签名称，多个标签用逗号分隔"
+    llm_description: "要添加的标签名称。支持：1) 单个标签名称；2) 多个标签用逗号分隔；3) JSON数组格式。标签名称必须是企业微信管理后台已配置的客户标签。"
+    form: llm
+extra:
+  python:
+    source: tools/add_customer_tags.py
+    class: AddCustomerTagsTool

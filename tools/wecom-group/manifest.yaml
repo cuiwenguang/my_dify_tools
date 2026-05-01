@@ -1,0 +1,36 @@
+version: 0.0.1
+type: plugin
+author: cwg
+name: wecom-group
+label:
+  en_US: WeCom Group Management
+  ja_JP: WeCom Group Management
+  zh_Hans: 企业微信群管理
+  pt_BR: WeCom Group Management
+description:
+  en_US: "企业微信客户群管理插件，支持获取群详情、管理群成员等功能"
+  ja_JP: "企业微信客户群管理插件，支持获取群详情、管理群成员等功能"
+  zh_Hans: "企业微信客户群管理插件，支持获取群详情、管理群成员等功能"
+  pt_BR: "企业微信客户群管理插件，支持获取群详情、管理群成员等功能"
+icon: icon.svg
+icon_dark: icon-dark.svg
+resource:
+  memory: 268435456
+  permission: {}
+plugins:
+  tools:
+    - provider/wecom-group.yaml
+meta:
+  version: 0.0.1
+  arch:
+    - amd64
+    - arm64
+  runner:
+    language: python
+    version: "3.12"
+    entrypoint: main
+  minimum_dify_version: null
+created_at: 2026-05-01T15:51:27.2344186+08:00
+privacy: PRIVACY.md
+repo: https://github.com/cuiwenguang/my_dify_tools.git
+verified: false

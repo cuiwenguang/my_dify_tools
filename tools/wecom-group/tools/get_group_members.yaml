@@ -1,0 +1,35 @@
+identity:
+  name: "get_group_members"
+  author: "cwg"
+  label:
+    en_US: "Get Group Members"
+    zh_Hans: "获取群成员列表"
+    pt_BR: "Get Group Members"
+    ja_JP: "Get Group Members"
+description:
+  human:
+    en_US: "获取企业微信客户群的成员列表，包括成员名字、加入时间、是否管理员等信息"
+    zh_Hans: "获取企业微信客户群的成员列表，包括成员名字、加入时间、是否管理员等信息"
+    pt_BR: "获取企业微信客户群的成员列表，包括成员名字、加入时间、是否管理员等信息"
+    ja_JP: "获取企业微信客户群的成员列表，包括成员名字、加入时间、是否管理员等信息"
+  llm: "用于获取企业微信客户群的成员列表。需要传入群ID(chat_id)，返回成员的详细信息列表，包括：成员名字、加入时间、是否管理员、是否群主等信息。在需要查看群成员情况、统计群成员数据时使用此工具。"
+parameters:
+  - name: chat_id
+    type: string
+    required: true
+    label:
+      en_US: Chat ID
+      zh_Hans: 群ID
+      pt_BR: Chat ID
+      ja_JP: Chat ID
+    human_description:
+      en_US: "企业微信客户群的唯一标识ID"
+      zh_Hans: "企业微信客户群的唯一标识ID"
+      pt_BR: "企业微信客户群的唯一标识ID"
+      ja_JP: "企业微信客户群的唯一标识ID"
+    llm_description: "企业微信客户群的唯一标识ID(chat_id)。可以从群聊信息或企业微信管理后台获取。"
+    form: llm
+extra:
+  python:
+    source: tools/get_group_members.py
+    class: GetGroupMembersTool
