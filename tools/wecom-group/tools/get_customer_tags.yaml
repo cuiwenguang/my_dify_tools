@@ -1,0 +1,35 @@
+identity:
+  name: "get_customer_tags"
+  author: "cwg"
+  label:
+    en_US: "Get Customer Tags"
+    zh_Hans: "查询客户标签"
+    pt_BR: "Get Customer Tags"
+    ja_JP: "Get Customer Tags"
+description:
+  human:
+    en_US: "查询企业微信客户的标签信息，包括标签名称、所属标签组等"
+    zh_Hans: "查询企业微信客户的标签信息，包括标签名称、所属标签组等"
+    pt_BR: "查询企业微信客户的标签信息，包括标签名称、所属标签组等"
+    ja_JP: "查询企业微信客户的标签信息，包括标签名称、所属标签组等"
+  llm: "用于查询企业微信客户的标签信息。需要传入客户的外部用户ID(external_userid)，返回客户已打标签的详细信息，包括：标签名称、所属标签组、标签类型、添加标签的跟进员工等。在需要了解客户标签情况、查看客户分类时使用此工具。"
+parameters:
+  - name: external_userid
+    type: string
+    required: true
+    label:
+      en_US: External User ID
+      zh_Hans: 客户外部用户ID
+      pt_BR: External User ID
+      ja_JP: External User ID
+    human_description:
+      en_US: "企业微信客户的外部用户唯一标识ID"
+      zh_Hans: "企业微信客户的外部用户唯一标识ID"
+      pt_BR: "企业微信客户的外部用户唯一标识ID"
+      ja_JP: "企业微信客户的外部用户唯一标识ID"
+    llm_description: "企业微信客户的外部用户唯一标识ID(external_userid)。可以从客户信息、群成员列表等地方获取。"
+    form: llm
+extra:
+  python:
+    source: tools/get_customer_tags.py
+    class: GetCustomerTagsTool

@@ -193,3 +193,130 @@ class WeComAPI:
             group_detail["member_list"].append(member_info)
         
         return True, "获取群详情成功", group_detail
+    
+    def get_group_members(self, chat_id: str) -> tuple[bool, str, list]:
+        success, message, group_detail = self.get_group_detail(chat_id)
+        if not success:
+            return False, message, []
+        
+        admin_list = group_detail.get("admin_list", [])
+        admin_userids = set()
+        for admin in admin_list:
+            if isinstance(admin, dict):
+                admin_userid = admin.get("userid", "")
+            else:
+                admin_userid = str(admin)
+            if admin_userid:
+                admin_userids.add(admin_userid)
+        
+        owner = group_detail.get("owner", "")
+        member_list = group_detail.get("member_list", [])
+        
+        clean_members = []
+        for member in member_list:
+            userid = member.get("userid", "")
+            name = member.get("name", "") or member.get("group_nickname", "") or userid
+            join_time = member.get("join_time", 0)
+            
+            is_admin = userid in admin_userids
+            is_owner = userid == owner
+            
+            clean_member = {
+                "userid": userid,
+                "name": name,
+                "join_time": join_time,
+                "is_admin": is_admin,
+                "is_owner": is_owner,
+                "type": member.get("type", 0),
+                "group_nickname": member.get("group_nickname", "")
+            }
+            clean_members.append(clean_member)
+        
+        return True, "获取群成员列表成功", clean_members
+    
+    def get_customer_detail(self, external_userid: str) -> tuple[bool, str, dict]:
+        url = "/externalcontact/get"
+        params = {
+            "external_userid": external_userid
+        }
+        
+        success, message, result = self._request("GET", url, params=params)
+        if not success:
+            return False, message, {}
+        
+        external_contact = result.get("external_contact", {})
+        follow_user = result.get("follow_user", [])
+        
+        customer_detail = {
+            "external_userid": external_contact.get("external_userid", ""),
+            "name": external_contact.get("name", ""),
+            "position": external_contact.get("position", ""),
+            "avatar": external_contact.get("avatar", ""),
+            "corp_name": external_contact.get("corp_name", ""),
+            "corp_full_name": external_contact.get("corp_full_name", ""),
+            "type": external_contact.get("type", 0),
+            "gender": external_contact.get("gender", 0),
+            "unionid": external_contact.get("unionid", ""),
+            "external_profile": external_contact.get("external_profile", {}),
+            "follow_info": []
+        }
+        
+        for follow in follow_user:
+            follow_info = {
+                "userid": follow.get("userid", ""),
+                "remark": follow.get("remark", ""),
+                "description": follow.get("description", ""),
+                "createtime": follow.get("createtime", 0),
+                "tags": follow.get("tags", []),
+                "remark_mobiles": follow.get("remark_mobiles", []),
+                "state": follow.get("state", ""),
+                "oper_userid": follow.get("oper_userid", ""),
+                "add_way": follow.get("add_way", 0)
+            }
+            customer_detail["follow_info"].append(follow_info)
+        
+        return True, "获取客户详情成功", customer_detail
+    
+    def get_customer_tags(self, external_userid: str) -> tuple[bool, str, list]:
+        success, message, customer_detail = self.get_customer_detail(external_userid)
+        if not success:
+            return False, message, []
+        
+        all_tags = []
+        follow_info = customer_detail.get("follow_info", [])
+        for follow in follow_info:
+            tags = follow.get("tags", [])
+            for tag in tags:
+                tag_info = {
+                    "group_name": tag.get("group_name", ""),
+                    "tag_name": tag.get("tag_name", ""),
+                    "tag_id": tag.get("tag_id", ""),
+                    "type": tag.get("type", 0),
+                    "follow_userid": follow.get("userid", "")
+                }
+                all_tags.append(tag_info)
+        
+        return True, "获取客户标签成功", all_tags
+    
+    def add_customer_tags(self, external_userid: str, userid: str, tag_names: list) -> tuple[bool, str]:
+        url = "/externalcontact/mark_tag"
+        
+        add_tags = []
+        for tag_name in tag_names:
+            if tag_name.strip():
+                add_tags.append(tag_name.strip())
+        
+        if not add_tags:
+            return False, "标签名称不能为空"
+        
+        payload = {
+            "userid": userid,
+            "external_userid": external_userid,
+            "add_tag": add_tags
+        }
+        
+        success, message, result = self._request("POST", url, json=payload)
+        if not success:
+            return False, message
+        
+        return True, "添加标签成功"

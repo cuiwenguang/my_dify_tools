@@ -65,6 +65,9 @@ credentials_schema:
 
 tools:
   - tools/get_group_detail.yaml
+  - tools/get_group_members.yaml
+  - tools/get_customer_tags.yaml
+  - tools/add_customer_tags.yaml
 extra:
   python:
     source: provider/wecom-group.py
