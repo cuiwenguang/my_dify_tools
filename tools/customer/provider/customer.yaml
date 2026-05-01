@@ -2,15 +2,15 @@ identity:
   author: "cwg"
   name: "customer"
   label:
-    en_US: "customer"
-    zh_Hans: "customer"
-    pt_BR: "customer"
-    ja_JP: "customer"
+    en_US: "Customer Management"
+    zh_Hans: "客户档案管理"
+    pt_BR: "Customer Management"
+    ja_JP: "Customer Management"
   description:
-    en_US: "客户档案查询"
-    zh_Hans: "客户档案查询"
-    pt_BR: "客户档案查询"
-    ja_JP: "客户档案查询"
+    en_US: "微信客户群客户信息档案管理工具，支持保存和查询客户信息"
+    zh_Hans: "微信客户群客户信息档案管理工具，支持保存和查询客户信息"
+    pt_BR: "微信客户群客户信息档案管理工具，支持保存和查询客户信息"
+    ja_JP: "微信客户群客户信息档案管理工具，支持保存和查询客户信息"
   icon: "icon.svg"
 
 #########################################################################################
@@ -56,7 +56,8 @@ identity:
 #         en_US: "Access Token"
 
 tools:
-  - tools/customer.yaml
+  - tools/save_customer.yaml
+  - tools/search_customer.yaml
 extra:
   python:
     source: provider/customer.py
