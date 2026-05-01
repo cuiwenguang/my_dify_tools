@@ -46,5 +46,5 @@ parameters:
     form: llm
 extra:
   python:
-    source: tools/customer.py
+    source: tools/save_customer.py
     class: SaveCustomerTool
