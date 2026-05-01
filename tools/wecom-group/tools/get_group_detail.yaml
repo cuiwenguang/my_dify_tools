@@ -1,0 +1,35 @@
+identity:
+  name: "get_group_detail"
+  author: "cwg"
+  label:
+    en_US: "Get Group Detail"
+    zh_Hans: "获取群详情"
+    pt_BR: "Get Group Detail"
+    ja_JP: "Get Group Detail"
+description:
+  human:
+    en_US: "获取企业微信客户群的详细信息，包括群名、群主、创建时间、群规模等"
+    zh_Hans: "获取企业微信客户群的详细信息，包括群名、群主、创建时间、群规模等"
+    pt_BR: "获取企业微信客户群的详细信息，包括群名、群主、创建时间、群规模等"
+    ja_JP: "获取企业微信客户群的详细信息，包括群名、群主、创建时间、群规模等"
+  llm: "用于获取企业微信客户群的详细信息。需要传入群ID(chat_id)，返回群名、群主、创建时间、群规模（成员数量）、管理员列表、群公告等信息。在需要了解客户群基本信息时使用此工具。"
+parameters:
+  - name: chat_id
+    type: string
+    required: true
+    label:
+      en_US: Chat ID
+      zh_Hans: 群ID
+      pt_BR: Chat ID
+      ja_JP: Chat ID
+    human_description:
+      en_US: "企业微信客户群的唯一标识ID"
+      zh_Hans: "企业微信客户群的唯一标识ID"
+      pt_BR: "企业微信客户群的唯一标识ID"
+      ja_JP: "企业微信客户群的唯一标识ID"
+    llm_description: "企业微信客户群的唯一标识ID(chat_id)。可以从群聊信息或企业微信管理后台获取。"
+    form: llm
+extra:
+  python:
+    source: tools/get_group_detail.py
+    class: GetGroupDetailTool
