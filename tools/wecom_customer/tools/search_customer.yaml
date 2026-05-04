@@ -1,0 +1,80 @@
+identity:
+  name: "search_customer"
+  author: "cwg"
+  label:
+    en_US: "Search Customer"
+    zh_Hans: "查询客户信息"
+    pt_BR: "Search Customer"
+    ja_JP: "Search Customer"
+description:
+  human:
+    en_US: "查询客户档案信息，支持按用户ID精确查询或关键词模糊搜索。如客户未建档会自动从企业微信初始化信息。"
+    zh_Hans: "查询客户档案信息，支持按用户ID精确查询或关键词模糊搜索。如客户未建档会自动从企业微信初始化信息。"
+    pt_BR: "查询客户档案信息，支持按用户ID精确查询或关键词模糊搜索。如客户未建档会自动从企业微信初始化信息。"
+    ja_JP: "查询客户档案信息，支持按用户ID精确查询或关键词模糊搜索。如客户未建档会自动从企业微信初始化信息。"
+  llm: "用于查询客户档案信息。支持两种查询方式：1) 按用户ID精确查询；2) 按关键词模糊搜索。特殊逻辑：如果按用户ID查询时客户未建档，会自动从企业微信API拉取客户详情、标签等信息并初始化建档。如客户已建档时，可选择是否先更新企业微信信息再返回。"
+parameters:
+  - name: user_id
+    type: string
+    required: false
+    label:
+      en_US: User ID
+      zh_Hans: 客户用户ID
+      pt_BR: User ID
+      ja_JP: User ID
+    human_description:
+      en_US: "企业微信客户的外部用户唯一标识ID（精确查询）"
+      zh_Hans: "企业微信客户的外部用户唯一标识ID（精确查询）"
+      pt_BR: "企业微信客户的外部用户唯一标识ID（精确查询）"
+      ja_JP: "企业微信客户的外部用户唯一标识ID（精确查询）"
+    llm_description: "企业微信客户的外部用户唯一标识ID(external_userid)。如果提供了user_id，将优先使用精确查询。如果客户未建档，会自动从企业微信初始化信息。"
+    form: llm
+  - name: keyword
+    type: string
+    required: false
+    label:
+      en_US: Keyword
+      zh_Hans: 关键词
+      pt_BR: Keyword
+      ja_JP: Keyword
+    human_description:
+      en_US: "搜索关键词（模糊查询）"
+      zh_Hans: "搜索关键词（模糊查询）"
+      pt_BR: "搜索关键词（模糊查询）"
+      ja_JP: "搜索关键词（模糊查询）"
+    llm_description: "用于模糊搜索客户信息的关键词。将在user_id和user_data中进行模糊匹配。当不提供user_id时使用此参数。"
+    form: llm
+  - name: sync_wecom
+    type: boolean
+    required: false
+    label:
+      en_US: Sync WeCom
+      zh_Hans: 同步企微信息
+      pt_BR: Sync WeCom
+      ja_JP: Sync WeCom
+    human_description:
+      en_US: "是否先从企业微信更新信息再返回，默认为false"
+      zh_Hans: "是否先从企业微信更新信息再返回，默认为false"
+      pt_BR: "是否先从企业微信更新信息再返回，默认为false"
+      ja_JP: "是否先从企业微信更新信息再返回，默认为false"
+    llm_description: "当客户已建档时，是否先从企业微信API更新客户详情和标签信息再返回。默认为false，直接返回数据库中的缓存数据。设置为true时会先同步再返回。"
+    form: llm
+  - name: include_full_detail
+    type: boolean
+    required: false
+    label:
+      en_US: Include Full Detail
+      zh_Hans: 包含完整详情
+      pt_BR: Include Full Detail
+      ja_JP: Include Full Detail
+    human_description:
+      en_US: "是否返回完整的客户详情数据，默认为false"
+      zh_Hans: "是否返回完整的客户详情数据，默认为false"
+      pt_BR: "是否返回完整的客户详情数据，默认为false"
+      ja_JP: "是否返回完整的客户详情数据，默认为false"
+    llm_description: "是否返回完整的客户详情数据（包含原始的user_data和wecom_info）。默认为false，只返回精简的summary信息。设置为true时返回完整数据。"
+    form: llm
+extra:
+  python:
+    source: tools/search_customer.py
+    class: SearchCustomerTool

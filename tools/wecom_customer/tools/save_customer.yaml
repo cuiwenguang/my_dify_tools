@@ -1,0 +1,65 @@
+identity:
+  name: "save_customer"
+  author: "cwg"
+  label:
+    en_US: "Save Customer"
+    zh_Hans: "保存客户信息"
+    pt_BR: "Save Customer"
+    ja_JP: "Save Customer"
+description:
+  human:
+    en_US: "保存或更新客户档案信息，同时同步企业微信客户信息、标签等数据"
+    zh_Hans: "保存或更新客户档案信息，同时同步企业微信客户信息、标签等数据"
+    pt_BR: "保存或更新客户档案信息，同时同步企业微信客户信息、标签等数据"
+    ja_JP: "保存或更新客户档案信息，同时同步企业微信客户信息、标签等数据"
+  llm: "用于保存或更新客户档案信息。可以保存大模型从聊天中提取的客户信息（如店面、联系方式等），同时自动从企业微信API同步客户详情、标签等信息。在需要记录客户信息、更新客户档案时使用此工具。"
+parameters:
+  - name: user_id
+    type: string
+    required: true
+    label:
+      en_US: User ID
+      zh_Hans: 客户用户ID
+      pt_BR: User ID
+      ja_JP: User ID
+    human_description:
+      en_US: "企业微信客户的外部用户唯一标识ID"
+      zh_Hans: "企业微信客户的外部用户唯一标识ID"
+      pt_BR: "企业微信客户的外部用户唯一标识ID"
+      ja_JP: "企业微信客户的外部用户唯一标识ID"
+    llm_description: "企业微信客户的外部用户唯一标识ID(external_userid)。可以从客户信息、群成员列表等地方获取。"
+    form: llm
+  - name: user_data
+    type: string
+    required: false
+    label:
+      en_US: Customer Data
+      zh_Hans: 客户数据
+      pt_BR: Customer Data
+      ja_JP: Customer Data
+    human_description:
+      en_US: "客户详细信息的JSON格式数据，如店面、联系方式、备注等"
+      zh_Hans: "客户详细信息的JSON格式数据，如店面、联系方式、备注等"
+      pt_BR: "客户详细信息的JSON格式数据，如店面、联系方式、备注等"
+      ja_JP: "客户详细信息的JSON格式数据，如店面、联系方式、备注等"
+    llm_description: "客户的详细信息，以JSON格式存储。可以包含从聊天中提取的客户姓名、电话、店面、联系方式、备注、历史对话摘要、需求等任何相关信息。如果为空，则只同步企业微信信息。"
+    form: llm
+  - name: sync_wecom
+    type: boolean
+    required: false
+    label:
+      en_US: Sync WeCom
+      zh_Hans: 同步企微信息
+      pt_BR: Sync WeCom
+      ja_JP: Sync WeCom
+    human_description:
+      en_US: "是否同步企业微信信息，默认为true"
+      zh_Hans: "是否同步企业微信信息，默认为true"
+      pt_BR: "是否同步企业微信信息，默认为true"
+      ja_JP: "是否同步企业微信信息，默认为true"
+    llm_description: "是否从企业微信API同步客户详情和标签信息。默认为true，设置为false时只保存传入的user_data。"
+    form: llm
+extra:
+  python:
+    source: tools/save_customer.py
+    class: SaveCustomerTool

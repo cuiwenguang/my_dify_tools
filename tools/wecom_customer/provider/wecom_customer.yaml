@@ -1,0 +1,71 @@
+identity:
+  author: "cwg"
+  name: "wecom_customer"
+  label:
+    en_US: "WeCom Customer Management"
+    zh_Hans: "企业微信客户管理"
+    pt_BR: "WeCom Customer Management"
+    ja_JP: "WeCom Customer Management"
+  description:
+    en_US: "企业微信客户档案管理插件，支持客户信息保存、查询，自动同步企业微信客户详情和标签"
+    zh_Hans: "企业微信客户档案管理插件，支持客户信息保存、查询，自动同步企业微信客户详情和标签"
+    pt_BR: "企业微信客户档案管理插件，支持客户信息保存、查询，自动同步企业微信客户详情和标签"
+    ja_JP: "企业微信客户档案管理插件，支持客户信息保存、查询，自动同步企业微信客户详情和标签"
+  icon: "icon.svg"
+
+credentials_schema:
+  - name: "corp_id"
+    type: "text-input"
+    required: true
+    placeholder:
+      en_US: "Please input your Corp ID"
+      zh_Hans: "请输入企业ID"
+      pt_BR: "Insira seu Corp ID"
+      ja_JP: "Corp IDを入力してください"
+    help:
+      en_US: "企业微信企业ID，在企业微信管理后台获取"
+      zh_Hans: "企业微信企业ID，在企业微信管理后台获取"
+      pt_BR: "企业微信企业ID，在企业微信管理后台获取"
+      ja_JP: "企业微信企业ID，在企业微信管理后台获取"
+    label:
+      zh_Hans: "企业ID"
+      en_US: "Corp ID"
+  - name: "secret"
+    type: "secret-input"
+    required: true
+    placeholder:
+      en_US: "Please input your Secret"
+      zh_Hans: "请输入应用Secret"
+      pt_BR: "Insira seu Secret"
+      ja_JP: "Secretを入力してください"
+    help:
+      en_US: "企业微信应用Secret，在企业微信管理后台获取"
+      zh_Hans: "企业微信应用Secret，在企业微信管理后台获取"
+      pt_BR: "企业微信应用Secret，在企业微信管理后台获取"
+      ja_JP: "企业微信应用Secret，在企业微信管理后台获取"
+    label:
+      zh_Hans: "应用Secret"
+      en_US: "Secret"
+  - name: "agent_id"
+    type: "text-input"
+    required: true
+    placeholder:
+      en_US: "Please input your Agent ID"
+      zh_Hans: "请输入应用Agent ID"
+      pt_BR: "Insira seu Agent ID"
+      ja_JP: "Agent IDを入力してください"
+    help:
+      en_US: "企业微信应用Agent ID，在企业微信管理后台获取"
+      zh_Hans: "企业微信应用Agent ID，在企业微信管理后台获取"
+      pt_BR: "企业微信应用Agent ID，在企业微信管理后台获取"
+      ja_JP: "企业微信应用Agent ID，在企业微信管理后台获取"
+    label:
+      zh_Hans: "应用Agent ID"
+      en_US: "Agent ID"
+
+tools:
+  - tools/save_customer.yaml
+  - tools/search_customer.yaml
+extra:
+  python:
+    source: provider/wecom_customer.py
